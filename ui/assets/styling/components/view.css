@@ -1,0 +1,33 @@
+:root {
+  --accent-color: 140, 190, 70;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: 0, 0, 0;
+    --text-color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: 255, 255, 255;
+    --text-color: #000000;
+  }
+}
+
+html,
+body,
+#main,
+#View {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#View {
+  background-color: rgb(var(--background-color));
+  display: flex;
+  flex-direction: column;
+}

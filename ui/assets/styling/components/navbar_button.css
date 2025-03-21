@@ -1,0 +1,27 @@
+.NavbarButton {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  flex-grow: 1;
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 0.5rem;
+  color: rgb(var(--accent-color));
+  text-decoration: none;
+  text-align: center;
+  align-items: center;
+}
+
+.NavbarButton:hover {
+  cursor: pointer;
+}
+
+.NavbarButton.active {
+  background-color: rgba(var(--accent-color), 0.3);
+}
+
+.NavbarButton svg {
+  width: 2rem;
+  height: 2rem;
+  margin: 0.2rem;
+}
