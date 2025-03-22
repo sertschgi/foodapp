@@ -5,14 +5,14 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background-color: 0, 0, 0;
-    --text-color: #ffffff;
+    --text-color: 250, 250, 250;
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --background-color: 255, 255, 255;
-    --text-color: #000000;
+    --text-color: 5, 5, 5;
   }
 }
 
@@ -24,10 +24,23 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  color: rgb(var(--text-color));
 }
 
 #View {
   background-color: rgb(var(--background-color));
   display: flex;
   flex-direction: column;
+}
+
+svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(var(--accent-color));
 }

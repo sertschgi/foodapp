@@ -1,0 +1,45 @@
+#Home {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#Home form {
+  width: 100%;
+}
+
+#Home label {
+  display: flex;
+  padding: 0.2rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  align-items: center;
+}
+
+#Home svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0.3rem;
+}
+
+#Home input {
+  background-color: transparent;
+  flex-grow: 1;
+  padding: 0.5rem;
+  color: inherit;
+  font-size: 1.1rem;
+  outline: none;
+  border: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+#Home input::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+#Home input::-webkit-search-cancel-button {
+  display: none;
+}
