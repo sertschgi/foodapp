@@ -1,9 +1,7 @@
-use dioxus::prelude::*;
+use crate::prelude::*;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const PLATFORM_CSS: Asset = asset!("/assets/platform.css");
-
-use crate::route::*;
 
 #[component]
 pub fn App() -> Element {

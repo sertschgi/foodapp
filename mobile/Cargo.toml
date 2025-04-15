@@ -4,10 +4,12 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-dioxus = { workspace = true, features = ["router"] }
-ui = { workspace = true }
+dioxus = { workspace = true }
+serving = { workspace = true, optional = true }
+ui = { workspace = true, optional = true }
+dotenv = { version = "0.15.0" }
 
 [features]
-default = ["mobile"]
-mobile = ["dioxus/mobile"]
-
+default = []
+server = ["dioxus/server", "serving"]
+desktop = ["dioxus/mobile", "ui"]

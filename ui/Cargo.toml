@@ -5,6 +5,6 @@ edition = "2021"
 
 [dependencies]
 dioxus = { workspace = true }
-server = { workspace = true }
+api = { workspace = true, features = ["client"], no-default = true }
 change-case = { version = ">=0.2.0" }
-
+serde_json = { version = "1.0" }

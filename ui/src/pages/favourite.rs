@@ -1,4 +1,4 @@
-use dioxus::prelude::*;
+use crate::prelude::{components::prelude::*, *};
 
 const FAVOURITE_CSS: Asset = asset!("/assets/styling/pages/favourite.css");
 
@@ -9,6 +9,7 @@ pub fn Favourite() -> Element {
 
         div {
             id: "Favourite",
+            PageHeader {}
         }
     }
 }

@@ -10,11 +10,12 @@
   text-decoration: none;
   text-align: center;
   align-items: center;
+  font-size: 0.8rem;
 }
 
 .NavbarButton > div {
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
   display: flex;
   align-items: center;
   flex-direction: column;

@@ -1,6 +1,4 @@
-use crate::route::*;
-use dioxus::prelude::*;
-use ui::components::prelude::*;
+use crate::prelude::{components::prelude::*, *};
 
 #[component]
 pub fn WebNavbar() -> Element {

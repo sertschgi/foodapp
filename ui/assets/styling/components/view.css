@@ -1,5 +1,6 @@
 :root {
   --accent-color: 140, 190, 70;
+  --border-radius: 0.5rem;
 }
 
 @media (prefers-color-scheme: dark) {

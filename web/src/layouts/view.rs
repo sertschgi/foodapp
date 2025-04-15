@@ -1,4 +1,4 @@
-use crate::*;
+use crate::prelude::{components::prelude::*, *};
 
 #[component]
 pub fn View() -> Element {

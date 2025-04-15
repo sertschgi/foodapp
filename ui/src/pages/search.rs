@@ -1,15 +1,35 @@
+use crate::components::prelude::*;
 use crate::*;
+use api::prelude::*;
+use serde_json::from_str as serialize;
 
 const SEARCH_CSS: Asset = asset!("/assets/styling/pages/search.css");
 
 #[component]
 pub fn Search() -> Element {
+    let mut restaurants = use_signal(Vec::<RestaurantItem>::new);
+    let change = move |_| async move {
+        debug!("Ping: {}", get_server_ping().await.unwrap_or_default());
+        let results = get_restaurants(String::from("%"))
+            .await
+            .expect("Could not get restaurants");
+        // .unwrap_or("No response from server".into());
+        debug!("Response:\n {}", results);
+        restaurants.set(serialize(&results).unwrap_or_else(|_| {
+            error!("Response could not be serialized");
+            Vec::new()
+        }));
+    };
     rsx! {
         document::Link { rel: "stylesheet", href: SEARCH_CSS }
 
         div {
             id: "Home",
+             PageHeader {
+
+             }
             form {
+                onsubmit: |e| { e.prevent_default() },
                 label {
                     svg {
                         fill: "currentColor",
@@ -19,6 +39,15 @@ pub fn Search() -> Element {
                     }
                     input {
                         type: "search",
+                        onchange: change
+                    }
+                }
+            }
+            section {
+                id: "search_results",
+                for item in restaurants.iter() {
+                    RestaurantResult {
+
                     }
                 }
             }

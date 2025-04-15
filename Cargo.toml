@@ -2,18 +2,17 @@
 resolver = "2"
 members = [
     "ui",
-    "web",
     "desktop",
     "mobile",
-    "server",
+    "serving",
+    "api"
 ]
 
 [workspace.dependencies]
-dioxus = { version = ">=0.6.0" }
-
-# workspace
+dioxus = { version = "0.6", features = ["fullstack", "router"] }
 ui = { path = "ui" }
-server = { path = "server" }
+api = { path = "api" }
+serving = { path = "serving" }
 
 [profile]
 
@@ -26,4 +25,5 @@ inherits = "dev"
 
 [profile.android-dev]
 inherits = "dev"
+
 

@@ -1,7 +1,50 @@
-use dioxus::prelude::*;
-use ui::pages::prelude::*;
+use crate::prelude::{pages::prelude as pages, *};
 
-use crate::layouts::prelude::*;
+pub fn Home() -> Element {
+    rsx! {
+        pages::Home {
+            account_route: Route::Account {},
+            settings_route: Route::Settings{},
+        }
+    }
+}
+
+pub fn Favourite() -> Element {
+    rsx! {
+        pages::Favourite {}
+    }
+}
+
+pub fn Search() -> Element {
+    rsx! {
+        pages::Search {}
+    }
+}
+
+pub fn Account() -> Element {
+    rsx! {
+        pages::Account {}
+    }
+}
+
+pub fn Settings() -> Element {
+    rsx! {}
+}
+
+#[component]
+pub fn HandleNotFound(route: Vec<String>) -> Element {
+    let nav = navigator();
+    debug!("route: {:?}", route);
+    if route.is_empty() {
+        nav.push(Route::Home {});
+    }
+    rsx! {
+        pages::NotFound {
+            route,
+            home: Route::Home {}
+        }
+    }
+}
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
@@ -19,16 +62,8 @@ pub enum Route {
     #[end_layout]
     #[route("/account")]
     Account {},
+    #[route("/settings")]
+    Settings {},
     #[route("/:..route")]
-    Default { route: Vec<String> },
-}
-
-#[component]
-pub fn Default(route: Vec<String>) -> Element {
-    rsx! {
-        NotFound {
-            route,
-            home: Route::Home {}
-        }
-    }
+    HandleNotFound { route: Vec<String> },
 }
