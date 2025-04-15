@@ -1,0 +1,17 @@
+[package]
+name = "serving"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.83.0"
+
+[dependencies]
+api = { workspace = true, features = ["server"] }
+dioxus = { workspace = true, features = ["server"] }
+tokio = { version = ">=1.0.0", features = ["full"] }
+axum = { version = "0.7.0" }
+dotenv = { version = ">=0.15.0" }
+tower = { version = ">=0.5.2" }
+deadpool-diesel = { version = "0.6", features = ["postgres"] }
+diesel = { version = "2", features = ["postgres"] }
+diesel_migrations = { version = "2" }
+postgis_diesel = { version = "2" }

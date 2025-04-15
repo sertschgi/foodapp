@@ -1,0 +1,4 @@
+[print_schema]
+generate_missing_sql_type_definitions = false
+import_types = ["diesel::sql_types::*", "postgis_diesel::sql_types::*"]
+file = "../server_lib/src/schema.rs"

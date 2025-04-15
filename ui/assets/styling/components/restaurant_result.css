@@ -1,0 +1,26 @@
+.RestaurantResult {
+  background-color: rgba(var(--accent-color), 0.9);
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  padding: 0.8rem;
+  align-items: left;
+  flex-grow: 1;
+  color: rgb(255, 255, 255, 255);
+}
+
+.RestaurantResult > img {
+  flex-grow: 1;
+}
+
+.RestaurantResult > .RestaurantName {
+  margin: 0.5rem 0;
+}
+
+.RestaurantResult > .Bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
