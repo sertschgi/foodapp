@@ -1,5 +1,6 @@
 use api::prelude::*;
 use axum::extract::*;
+use axum::middleware;
 use axum::routing::*;
 use axum::Router;
 use deadpool_diesel::{
@@ -51,6 +52,7 @@ pub async fn serve() {
     let app = Router::new()
         .register_server_functions()
         .layer(Extension(pool))
+        .layer(middleware::from_fn_with_state(pool.clone(), session_layer))
         .with_state(());
 
     let host = env::var("INTERN_SV_HOST")

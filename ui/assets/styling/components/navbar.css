@@ -1,9 +1,11 @@
 #Navbar {
-  background-color: rgba(var(--background-color), 0.3);
+  background-color: rgba(var(--background-color), 0.8);
+  backdrop-filter: blur(6px);
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  display: sticky;
+  position: sticky;
   padding: 0.5rem;
+  bottom: 0;
 }

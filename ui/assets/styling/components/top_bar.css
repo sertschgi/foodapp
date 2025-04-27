@@ -1,0 +1,39 @@
+#TopBar {
+  background-color: rgba(var(--text-color), 0.05);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  height: 4rem;
+  width: 100%;
+  align-items: center;
+}
+
+#TopBar .Title {
+  font-size: 2rem;
+  font-weight: bold;
+  justify-self: center;
+  flex-grow: 1;
+  margin: 0;
+  text-align: center;
+}
+
+#TopBar .BackButton {
+  background-color: transparent;
+  border: none;
+  border-radius: 2rem;
+  color: rgba(var(--accent-color), 1);
+  display: flex;
+  justify-self: left;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+#TopBar .BackButton svg {
+  height: 3rem;
+  width: 3rem;
+}

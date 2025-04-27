@@ -1,0 +1,10 @@
+.BackButton {
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+}

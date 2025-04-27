@@ -24,3 +24,14 @@
   flex-direction: row;
   justify-content: left;
 }
+
+.RestaurantResult > .Favourite {
+  height: 0;
+  width: fit-content;
+  position: relative;
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 0;
+}

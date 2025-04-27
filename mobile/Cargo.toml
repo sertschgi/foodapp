@@ -12,4 +12,4 @@ dotenv = { version = "0.15.0" }
 [features]
 default = []
 server = ["dioxus/server", "serving"]
-desktop = ["dioxus/mobile", "ui"]
+mobile = ["dioxus/mobile", "ui"]

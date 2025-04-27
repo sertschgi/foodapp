@@ -1,4 +1,4 @@
-use dioxus::prelude::*;
+use crate::prelude::{components::prelude::*, *};
 
 const ACCOUNT_CSS: Asset = asset!("/assets/styling/pages/account.css");
 
@@ -9,6 +9,24 @@ pub fn Account() -> Element {
 
         div {
             id: "Favourite",
+            AccountIcon {}
+            form {
+                label {
+                    "Benutzername:"
+                    input {
+
+                    }
+                }
+                label {
+                    "Passwort:"
+                    input {
+
+                    }
+                }
+                button {
+                    "Einloggen"
+                }
+            }
         }
     }
 }

@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "mobile",
+      "program": "${workspaceFolder}/bin/mobile",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "sourceLanguages": ["rust"]
+      "preLaunchTask": "build mobile"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "build mobile",
+      "type": "shell",
+      "command": "dx build --package mobile --platform android --verbose --trace",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$rustc"]
+    }
+  ]
+}

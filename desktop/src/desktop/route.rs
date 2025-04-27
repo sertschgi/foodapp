@@ -60,10 +60,14 @@ pub enum Route {
     Search {},
     #[end_layout]
     #[end_layout]
+    #[layout(MobileTopBar)]
+    #[layout(Page)]
     #[route("/account")]
     Account {},
     #[route("/settings")]
     Settings {},
+    #[end_layout]
+    #[end_layout]
     #[route("/:..route")]
     HandleNotFound { route: Vec<String> },
 }

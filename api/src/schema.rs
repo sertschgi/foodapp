@@ -1,5 +1,4 @@
 // @generated automatically by Diesel CLI.
-//
 
 diesel::table! {
     use diesel::sql_types::*;
@@ -11,7 +10,7 @@ diesel::table! {
         stars -> Int2,
         price -> Int2,
         rating -> Nullable<Text>,
-        created_at -> Nullable<Timestamptz>,
+        created_at -> Timestamptz,
     }
 }
 
@@ -50,17 +49,12 @@ diesel::table! {
     user_sessions (id) {
         id -> Uuid,
         user_id -> Uuid,
-        #[max_length = 255]
-        session_token -> Varchar,
-        #[max_length = 255]
-        refresh_token -> Varchar,
-        device_info -> Nullable<Text>,
-        ip_address -> Nullable<Inet>,
-        user_agent -> Nullable<Text>,
-        is_active -> Nullable<Bool>,
-        created_at -> Nullable<Timestamptz>,
+        device_info -> Text,
+        ip_address -> Inet,
+        user_agent -> Text,
+        created_at -> Timestamptz,
         expires_at -> Timestamptz,
-        last_accessed_at -> Nullable<Timestamptz>,
+        last_accessed_at -> Timestamptz,
     }
 }
 
@@ -78,8 +72,8 @@ diesel::table! {
         password_hash -> Varchar,
         #[max_length = 100]
         salt -> Varchar,
-        created_at -> Nullable<Timestamptz>,
-        updated_at -> Nullable<Timestamptz>,
+        created_at -> Timestamptz,
+        updated_at -> Timestamptz,
     }
 }
 

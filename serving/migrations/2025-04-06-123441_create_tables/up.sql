@@ -4,22 +4,22 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     salt VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE user_sessions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    session_token VARCHAR(255) NOT NULL,
-    refresh_token VARCHAR(255) NOT NULL,
-    device_info TEXT,
-    ip_address INET,
-    user_agent TEXT,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    -- session_token VARCHAR(255) NOT NULL,
+    -- refresh_token VARCHAR(255) NOT NULL,
+    device_info TEXT NOT NULL,
+    ip_address INET NOT NULL,
+    user_agent TEXT NOT NULL,
+    -- is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    last_accessed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    last_accessed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL 
 );
 
 CREATE EXTENSION IF NOT EXISTS postgis;
@@ -27,7 +27,8 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE TABLE restaurants (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name VARCHAR(40) NOT NULL,
-  location geography(POINT, 4326) NOT NULL
+  location geography(POINT, 4326) NOT NULL,
+  picture BYTEA
 );
 
 CREATE TABLE ratings (
@@ -36,12 +37,15 @@ CREATE TABLE ratings (
   stars int2 CHECK (stars >= 0 AND stars <= 5) NOT NULL,
   price int2 CHECK (price >= 0 AND price <= 3) NOT NULL,
   rating TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE favourites (
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  restaurant_id UUID NOT NULL REFERENCES restaurants(id) ON DELETE CASCADE
 );
 
 CREATE INDEX idx_user_sessions_user_id ON user_sessions(user_id);
-CREATE INDEX idx_user_sessions_token ON user_sessions(session_token);
-CREATE INDEX idx_user_sessions_refresh_token ON user_sessions(refresh_token);
 
 CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$

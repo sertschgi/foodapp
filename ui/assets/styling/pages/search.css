@@ -1,14 +1,20 @@
-#Home {
+#Search {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-#Home form {
+#Search form {
+  background-color: rgba(var(--background-color), 0.8);
+  backdrop-filter: blur(6px);
   width: 100%;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-#Home label {
+#Search label {
   display: flex;
   padding: 0.2rem;
   background-color: rgba(var(--text-color), 0.2);
@@ -16,13 +22,19 @@
   align-items: center;
 }
 
-#Home svg {
+#Search svg {
   width: 1.4rem;
   height: 1.4rem;
   margin: 0.3rem;
 }
 
-#Home input {
+#search_results {
+  margin: 0.5rem;
+  height: 100%;
+}
+
+#Search input {
+  top: 0;
   background-color: transparent;
   flex-grow: 1;
   padding: 0.5rem;
@@ -35,11 +47,11 @@
     box-shadow 0.3s ease;
 }
 
-#Home input::placeholder {
+#Search input::placeholder {
   color: #888;
   opacity: 1;
 }
 
-#Home input::-webkit-search-cancel-button {
+#Search input::-webkit-search-cancel-button {
   display: none;
 }

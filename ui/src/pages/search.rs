@@ -8,9 +8,9 @@ const SEARCH_CSS: Asset = asset!("/assets/styling/pages/search.css");
 #[component]
 pub fn Search() -> Element {
     let mut restaurants = use_signal(Vec::<RestaurantItem>::new);
-    let change = move |_| async move {
+    let change = move |e: FormEvent| async move {
         debug!("Ping: {}", get_server_ping().await.unwrap_or_default());
-        let results = get_restaurants(String::from("%"))
+        let results = get_restaurants(format!("{}", e.value()))
             .await
             .expect("Could not get restaurants");
         // .unwrap_or("No response from server".into());
@@ -24,7 +24,7 @@ pub fn Search() -> Element {
         document::Link { rel: "stylesheet", href: SEARCH_CSS }
 
         div {
-            id: "Home",
+            id: "Search",
              PageHeader {
 
              }
@@ -39,7 +39,7 @@ pub fn Search() -> Element {
                     }
                     input {
                         type: "search",
-                        onchange: change
+                        oninput: change
                     }
                 }
             }
@@ -47,7 +47,9 @@ pub fn Search() -> Element {
                 id: "search_results",
                 for item in restaurants.iter() {
                     RestaurantResult {
-
+                        name: item.restaurant.name.clone(),
+                        stars: item.ratings.iter().fold(0, |acc, rating| { acc + rating.stars }) as f32 / item.ratings.iter().len() as f32,
+                        price: item.ratings.iter().fold(0, |acc, rating| { acc + rating.price }) as f32 / item.ratings.iter().len() as f32,
                     }
                 }
             }
