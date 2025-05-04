@@ -1,10 +1,12 @@
-pub mod app;
-pub mod layouts;
-pub mod prelude;
-pub mod route;
+#[cfg(feature = "desktop")]
+pub mod desktop;
+#[cfg(feature = "server")]
+pub mod server;
+#[cfg(feature = "desktop")]
+pub use desktop::*;
+#[cfg(feature = "server")]
+pub use server::*;
 
 fn main() {
-    dioxus::logger::initialize_default();
-    // dioxus::fullstack::prelude::server_fn::client::set_server_url("http://172.21.0.3:8089");
-    dioxus::LaunchBuilder::web().launch(app::App);
+    launch()
 }

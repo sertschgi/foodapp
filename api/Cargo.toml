@@ -19,9 +19,12 @@ derive_builder = { version = "0.20" }
 derive-new = { version = "0.7" }
 rand = { version = "0.9", optional = true }
 ipnet = { version = "2.11", features = ["serde"] }
+tower-cookies = { version = "0.11", optional = true }
+leptos = { version = "0.7", optional = true }
 
 
 [features]
 default = []
-server = ["dioxus/server", "axum", "axum-extra", "deadpool-diesel/postgres", "argon2", "rand"]
+server = ["dioxus/server", "axum", "axum-extra", "deadpool-diesel/postgres",
+"argon2", "rand", "tower-cookies", "leptos"]
 client = []

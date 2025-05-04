@@ -1,22 +1,38 @@
 .RestaurantResult {
   background-color: rgba(var(--accent-color), 0.9);
-  height: 10rem;
+  border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
-  border-radius: var(--border-radius);
   margin: 1rem 0;
-  padding: 0.8rem;
   align-items: left;
   flex-grow: 1;
   color: rgb(255, 255, 255, 255);
+  box-shadow: 0.4em 0.4em 1em rgba(0, 0, 0, 0.2);
 }
 
-.RestaurantResult > img {
+.RestaurantResult > .info {
+  padding: 0.8rem;
+}
+
+.RestaurantResult .wrapper:has(.image) {
   flex-grow: 1;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.RestaurantResult > .RestaurantName {
-  margin: 0.5rem 0;
+.RestaurantResult .image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.RestaurantResult .name {
+  margin: 0.4rem 0;
 }
 
 .RestaurantResult > .Bar {
@@ -34,4 +50,8 @@
   border: none;
   color: white;
   padding: 0;
+}
+
+.RestaurantResult > .Favourite svg {
+  padding: 1rem;
 }

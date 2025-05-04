@@ -1,7 +1,7 @@
 use crate::prelude::{components::prelude::*, *};
 
 #[component]
-pub fn WebNavbar() -> Element {
+pub fn MobileNavbar() -> Element {
     rsx! {
         Outlet::<Route> {}
          Navbar {

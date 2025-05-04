@@ -4,12 +4,25 @@ diesel::table! {
     use diesel::sql_types::*;
     use postgis_diesel::sql_types::*;
 
+    favourites (id) {
+        id -> Uuid,
+        user_id -> Uuid,
+        restaurant_id -> Uuid,
+    }
+}
+
+diesel::table! {
+    use diesel::sql_types::*;
+    use postgis_diesel::sql_types::*;
+
     ratings (id) {
         id -> Uuid,
         restaurant_id -> Uuid,
         stars -> Int2,
         price -> Int2,
         rating -> Nullable<Text>,
+        #[max_length = 50]
+        author -> Varchar,
         created_at -> Timestamptz,
     }
 }
@@ -23,6 +36,7 @@ diesel::table! {
         #[max_length = 40]
         name -> Varchar,
         location -> Geography,
+        picture -> Nullable<Bytea>,
     }
 }
 
@@ -77,10 +91,13 @@ diesel::table! {
     }
 }
 
+diesel::joinable!(favourites -> restaurants (restaurant_id));
+diesel::joinable!(favourites -> users (user_id));
 diesel::joinable!(ratings -> restaurants (restaurant_id));
 diesel::joinable!(user_sessions -> users (user_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
+    favourites,
     ratings,
     restaurants,
     spatial_ref_sys,

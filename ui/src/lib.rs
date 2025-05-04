@@ -12,4 +12,5 @@ pub mod prelude {
     pub(crate) use dioxus::logger::tracing::*;
     pub(crate) use dioxus::prelude::*;
     pub(crate) use icons::*;
+    pub(crate) use uuid::Uuid;
 }

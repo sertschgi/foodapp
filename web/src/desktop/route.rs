@@ -50,7 +50,7 @@ pub fn HandleNotFound(route: Vec<String>) -> Element {
 #[rustfmt::skip]
 pub enum Route {
     #[layout(View)]
-    #[layout(WebNavbar)]
+    #[layout(MobileNavbar)]
     #[layout(Page)]
     #[route("/startseite")]
     Home {},    
@@ -60,10 +60,14 @@ pub enum Route {
     Search {},
     #[end_layout]
     #[end_layout]
+    #[layout(MobileTopBar)]
+    #[layout(Page)]
     #[route("/account")]
     Account {},
     #[route("/settings")]
     Settings {},
+    #[end_layout]
+    #[end_layout]
     #[route("/:..route")]
     HandleNotFound { route: Vec<String> },
 }

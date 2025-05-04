@@ -1,4 +1,6 @@
--- Insert 10 sample restaurants with geographic locations in major cities
+INSERT INTO users (username, email, password_hash, salt) VALUES 
+('sample', 'sample@sample.com', '', '');
+
 INSERT INTO restaurants (name, location) VALUES
 ('The Gourmet Kitchen', ST_GeographyFromText('POINT(-73.9857 40.7484)')), -- New York
 ('Seaside Bistro', ST_GeographyFromText('POINT(-118.4085 33.9416)')), -- Los Angeles

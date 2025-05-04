@@ -8,3 +8,6 @@ dioxus = { workspace = true }
 api = { workspace = true, features = ["client"], no-default = true }
 change-case = { version = ">=0.2.0" }
 serde_json = { version = "1.0" }
+uuid = { version = "1", features = ["serde"] }
+dioxus_storage = { git = "https://github.com/DioxusLabs/sdk" }
+base64 = { version = "0.22" }

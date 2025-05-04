@@ -1,0 +1,48 @@
+#Account {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#Account form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#Account button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5rem;
+  border: none;
+  background-color: rgb(var(--accent-color));
+  color: white;
+  padding: 0.5rem;
+  margin-top: 0.8rem;
+  cursor: pointer;
+}
+
+#Account > .wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+#Account input {
+  display: flex;
+  margin: 0.5rem;
+  background-color: rgba(var(--text-color), 0.2);
+  border-radius: 1rem;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0.5rem;
+  color: inherit;
+  outline: none;
+  border: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}

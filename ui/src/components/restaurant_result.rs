@@ -1,56 +1,47 @@
 use crate::prelude::{components::prelude::*, *};
+use api::prelude::*;
+use base64::prelude::*;
+use dioxus_storage::{use_synced_storage, LocalStorage};
 
 const RESTAURANT_RESULT_CSS: Asset = asset!("/assets/styling/components/restaurant_result.css");
 
 #[component]
 pub fn RestaurantResult(
+    restaurant_id: Uuid,
     #[props(into)] name: String,
-    #[props(into)] stars: f32,
-    #[props(into)] price: f32,
+    ratings: Vec<Rating>,
+    favourite: Signal<bool>,
 ) -> Element {
-    debug!("stars: {stars}");
-    debug!("price: {price}");
-
-    let full_stars = stars as i16;
-    let half_star = stars.fract() > 0.5;
-    let empty_stars = 5 - full_stars - half_star as i16;
-    let full_price = price as i16;
-    let empty_price = 3 - full_price;
-
+    let n1 = name.clone();
+    let click = move |_| {
+        navigator().push(format!("/restaurant/{}", n1));
+    };
     rsx! {
         document::Link { rel: "stylesheet", href: RESTAURANT_RESULT_CSS }
         div {
             class: "RestaurantResult",
-            button {
-                class: "Favourite",
-                AddFavouriteIcon {}
-            }
-            img {
-
-            }
-            h2 {
-                class: "RestaurantName",
-                {name}
+            FavouriteButton {
+                restaurant_id,
+                favourite,
             }
             div {
-                class: "Ratings Bar",
-                for _ in 0..full_stars {
-                    StarFullIcon {}
-                }
-                if half_star {
-                    StarHalfIcon {}
-                }
-                for _ in 0..empty_stars {
-                    StarEmptyIcon {}
+                class: "wrapper",
+                onclick: click.clone(),
+                img {
+                    class: "image",
+                    src: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/b4/d6/77/die-gemutliche-alte-gaststube.jpg",
                 }
             }
             div {
-                class: "Price Bar",
-                for _ in 0..full_price {
-                    PriceFullIcon {}
+                class: "info",
+                h2 {
+                    class: "name",
+                    onclick: click,
+                    {name}
                 }
-                for _ in 0..empty_price {
-                    PriceEmptyIcon {}
+                RatingsBar {
+                    restaurant_id,
+                    ratings,
                 }
             }
         }

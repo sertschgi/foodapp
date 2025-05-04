@@ -13,15 +13,19 @@ pub fn Home(
         div {
             id: "Favourite",
              PageHeader {
-                Link {
-                    to: settings_route,
-                    SettingsIcon {}
-                }
+                // Link {
+                //     to: settings_route,
+                //     SettingsIcon {}
+                // }
                 Link {
                     to: account_route,
                     AccountIcon {}
                 }
+                ColorMode {  }
              }
+            h4 {
+                "Danke, dass du unsere App nutzt :)"
+            }
         }
     }
 }

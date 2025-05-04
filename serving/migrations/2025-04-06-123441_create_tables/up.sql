@@ -37,10 +37,12 @@ CREATE TABLE ratings (
   stars int2 CHECK (stars >= 0 AND stars <= 5) NOT NULL,
   price int2 CHECK (price >= 0 AND price <= 3) NOT NULL,
   rating TEXT,
+  author VARCHAR(50) NOT NULL REFERENCES users(username) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE favourites (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   restaurant_id UUID NOT NULL REFERENCES restaurants(id) ON DELETE CASCADE
 );

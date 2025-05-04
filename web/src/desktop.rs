@@ -15,7 +15,6 @@ use prelude::*;
 pub fn launch() {
     dioxus::logger::initialize_default();
     dioxus::fullstack::prelude::server_fn::client::set_server_url("http://172.20.0.3:80");
-    dioxus_storage::set_dir!();
 
     dioxus::launch(app::App)
 }

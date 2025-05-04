@@ -5,11 +5,12 @@ members = [
     "desktop",
     "mobile",
     "serving",
-    "api"
+    "api",
+    "web"
 ]
 
 [workspace.dependencies]
-dioxus = { version = "0.6", features = ["fullstack", "router"] }
+dioxus = { version = "0.6.0", features = ["fullstack", "router"] }
 ui = { path = "ui" }
 api = { path = "api" }
 serving = { path = "serving" }

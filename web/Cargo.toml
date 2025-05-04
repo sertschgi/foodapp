@@ -5,4 +5,11 @@ edition = "2021"
 
 [dependencies]
 dioxus = { workspace = true }
-ui = { workspace = true }
+serving = { workspace = true, optional = true }
+ui = { workspace = true, optional = true }
+dotenv = { version = "0.15.0" }
+
+[features]
+default = []
+server = ["dioxus/server", "serving"]
+web = ["dioxus/web", "ui"]

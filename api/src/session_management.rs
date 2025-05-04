@@ -4,6 +4,7 @@ use chrono::Utc;
 use deadpool_diesel::postgres::Pool;
 use derive_new::new;
 use diesel::{delete, insert_into, prelude::*};
+use dioxus::prelude::extract;
 use ipnet::IpNet;
 use uuid::Uuid;
 
@@ -48,15 +49,18 @@ impl SessionService {
 
     pub async fn validate_session(
         &mut self,
-        id: Uuid,
-        ip_address: IpNet,
-        user_agent: String,
-    ) -> Result<Option<UserSession>, Error> {
+        login_session: &LoginSession,
+    ) -> Result<UserSession, Error> {
+        let id = login_session.id;
+        let header: HeaderMap = extract().await?;
+        let user_agent = user_agent(header);
+        let ConnectInfo(socket_addr): ConnectInfo<SocketAddr> = extract().await?;
+        let ip_address: IpNet = socket_addr.ip().into();
         let now = Utc::now().naive_utc();
 
         let manager = self.pool.get().await?;
 
-        let session: Option<UserSession> = manager
+        let session: UserSession = manager
             .interact(move |c| {
                 schema::user_sessions
                     .filter(schema::id.eq(id))
@@ -64,10 +68,8 @@ impl SessionService {
                     .filter(schema::ip_address.eq(ip_address))
                     .filter(schema::user_agent.eq(user_agent))
                     .first(c)
-                    .optional()
             })
             .await??;
-
         Ok(session)
     }
 
@@ -96,7 +98,7 @@ use axum::{
     response::Response,
     Extension,
 };
-use axum_extra::extract::cookie::{Cookie, PrivateCookieJar};
+use axum_extra::extract::cookie::{Cookie, CookieJar};
 use std::net::SocketAddr;
 
 pub fn user_agent(headers: HeaderMap) -> String {
@@ -143,23 +145,18 @@ where
         // Get headers
         let headers = parts.headers.clone();
 
-        // Get session ID from cookie or auth header
-        let string_id = parts
+        println!("Headers: {:#?}", headers);
+
+        let session: UserSession = parts
             .extensions
-            .get::<PrivateCookieJar>()
-            .and_then(|jar| jar.get("session_id").map(|c| c.value().to_string()))
-            .or_else(|| {
-                headers
-                    .get("Authorization")
-                    .and_then(|h| h.to_str().ok())
-                    .and_then(|h| h.strip_prefix("Bearer "))
-                    .map(|t| t.to_string())
-            })
-            .ok_or((StatusCode::UNAUTHORIZED, "Missing session token"))?;
+            .get::<CookieJar>()
+            .and_then(|jar| jar.get("session"))
+            .map(|c| serde_json::from_str(&c.value().to_string()).unwrap())
+            .ok_or((StatusCode::UNAUTHORIZED, "Invalid session token"))?;
 
-        let id =
-            Uuid::parse_str(&string_id).map_err(|_| (StatusCode::UNAUTHORIZED, "No valid Id"))?;
+        println!("Session: {:?}", session);
 
+        let id = session.id;
         let user_agent = user_agent(headers.clone());
 
         // Get ConnectInfo
@@ -168,17 +165,17 @@ where
             .map_err(|_| (StatusCode::UNAUTHORIZED, "Could not get the ip address"))?;
 
         let ip_address: IpNet = socket_addr.ip().into();
-        let mut session_service = SessionService::new(pool.clone());
-        let session = session_service
-            .validate_session(id, ip_address, user_agent)
-            .await
-            .map_err(|_| {
-                (
-                    StatusCode::INTERNAL_SERVER_ERROR,
-                    "Failed to validate session",
-                )
-            })?
-            .ok_or((StatusCode::UNAUTHORIZED, "Invalid session"))?;
+        // let mut session_service = SessionService::new(pool.clone());
+        // let session = session_service
+        //     .validate_session(id, ip_address, user_agent)
+        //     .await
+        //     .map_err(|_| {
+        //         (
+        //             StatusCode::INTERNAL_SERVER_ERROR,
+        //             "Failed to validate session",
+        //         )
+        //     })?
+        //     .ok_or((StatusCode::UNAUTHORIZED, "Invalid session"))?;
 
         Ok(AuthSession(session))
     }

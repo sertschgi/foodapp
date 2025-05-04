@@ -1,20 +1,17 @@
 :root {
   --accent-color: 140, 190, 70;
   --border-radius: 0.5rem;
+  --page-margin: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: 0, 0, 0;
-    --text-color: 250, 250, 250;
-  }
+:root:has(#View[darkmode="true"]) {
+  --background-color: 0, 0, 0;
+  --text-color: 250, 250, 250;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background-color: 255, 255, 255;
-    --text-color: 5, 5, 5;
-  }
+:root:has(#View[darkmode="false"]) {
+  --background-color: 255, 255, 255;
+  --text-color: 5, 5, 5;
 }
 
 html,
@@ -52,4 +49,5 @@ a {
   align-items: center;
   text-decoration: none;
   color: rgb(var(--accent-color));
+  cursor: pointer;
 }

@@ -4,7 +4,7 @@ use change_case::pascal_case;
 const TOP_BAR_CSS: Asset = asset!("/assets/styling/components/top_bar.css");
 
 #[component]
-pub fn TopBar() -> Element {
+pub fn TopBar(children: Element) -> Element {
     let route_str = router().full_route_string();
     let unfmt_name = route_str.split("/").last().unwrap_or_default();
     let title = pascal_case(unfmt_name);
@@ -16,15 +16,23 @@ pub fn TopBar() -> Element {
 
         div {
             id: "TopBar",
-            button {
-                class: "BackButton",
-                onclick: click,
-                BackIcon {}
+            div {
+                class: "wrapper",
+                button {
+                    class: "BackButton",
+                    onclick: click,
+                    BackIcon {}
+                }
+                h3 {
+                    class: "Title",
+                    {title}
+                }
+                {children}
             }
-            h3 {
-                class: "Title",
-                {title}
+            div {
+                id: "TopBarPlaceholder"
             }
         }
+
     }
 }

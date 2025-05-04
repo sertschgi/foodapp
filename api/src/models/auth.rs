@@ -21,7 +21,15 @@ pub(crate) struct NewUser {
     pub salt: String,
 }
 
-#[derive(Queryable, Identifiable, Serialize, Deserialize, Clone)]
+#[derive(Queryable, Selectable, Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[diesel(table_name = users)]
+pub struct UserInfo {
+    pub username: String,
+    pub email: String,
+    pub created_at: DateTime<Utc>,
+}
+
+#[derive(Queryable, Identifiable, Serialize, Deserialize, Debug, Clone)]
 #[diesel(belongs_to(User))]
 #[diesel(table_name = user_sessions)]
 pub(crate) struct UserSession {
@@ -43,4 +51,20 @@ pub(crate) struct NewUserSession {
     pub device_info: String,
     pub user_agent: String,
     pub expires_at: DateTime<Utc>,
+}
+
+#[derive(Queryable, Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[diesel(table_name = user_sessions)]
+pub struct LoginSession {
+    pub id: Uuid,
+    pub user_id: Uuid,
+}
+
+impl From<UserSession> for LoginSession {
+    fn from(s: UserSession) -> Self {
+        LoginSession {
+            id: s.id,
+            user_id: s.user_id,
+        }
+    }
 }

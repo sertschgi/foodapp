@@ -1,6 +1,9 @@
+use api::middleware::*;
 use api::prelude::*;
+
 use axum::extract::*;
 use axum::middleware;
+use axum::response::IntoResponse;
 use axum::routing::*;
 use axum::Router;
 use deadpool_diesel::{
@@ -16,6 +19,7 @@ use dotenv::dotenv;
 use std::env;
 use std::net::*;
 use tokio::net::TcpSocket;
+use tower_cookies::{Cookie, CookieManagerLayer, Cookies};
 
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
 
@@ -52,7 +56,7 @@ pub async fn serve() {
     let app = Router::new()
         .register_server_functions()
         .layer(Extension(pool))
-        .layer(middleware::from_fn_with_state(pool.clone(), session_layer))
+        .layer(middleware::from_fn(cookie_middleware))
         .with_state(());
 
     let host = env::var("INTERN_SV_HOST")
@@ -78,7 +82,10 @@ pub async fn serve() {
 
     info!("Serving...");
 
-    axum::serve(listener, app.into_make_service())
-        .await
-        .expect("Could not serve");
+    axum::serve(
+        listener,
+        app.into_make_service_with_connect_info::<SocketAddr>(),
+    )
+    .await
+    .expect("Could not serve");
 }
