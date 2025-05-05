@@ -64,7 +64,8 @@ diesel::table! {
         id -> Uuid,
         user_id -> Uuid,
         device_info -> Text,
-        ip_address -> Inet,
+        #[max_length = 50]
+        ip_address -> Varchar,
         user_agent -> Text,
         created_at -> Timestamptz,
         expires_at -> Timestamptz,

@@ -5,7 +5,6 @@ use deadpool_diesel::postgres::Pool;
 use derive_new::new;
 use diesel::{delete, insert_into, prelude::*};
 use dioxus::prelude::extract;
-use ipnet::IpNet;
 use uuid::Uuid;
 
 #[derive(new)]
@@ -19,7 +18,7 @@ impl SessionService {
     pub async fn create_session(
         &mut self,
         user_id: Uuid,
-        ip_address: IpNet,
+        ip_address: String,
         device_info: String,
         user_agent: String,
     ) -> Result<UserSession, Error> {
@@ -55,7 +54,7 @@ impl SessionService {
         let header: HeaderMap = extract().await?;
         let user_agent = user_agent(header);
         let ConnectInfo(socket_addr): ConnectInfo<SocketAddr> = extract().await?;
-        let ip_address: IpNet = socket_addr.ip().into();
+        let ip_address: String = socket_addr.ip().to_string();
         let now = Utc::now().naive_utc();
 
         let manager = self.pool.get().await?;
@@ -159,12 +158,11 @@ where
         let id = session.id;
         let user_agent = user_agent(headers.clone());
 
-        // Get ConnectInfo
-        let ConnectInfo(socket_addr) = ConnectInfo::<SocketAddr>::from_request_parts(parts, state)
+        let ConnectInfo(socket_addr): ConnectInfo<SocketAddr> = extract()
             .await
             .map_err(|_| (StatusCode::UNAUTHORIZED, "Could not get the ip address"))?;
+        let ip_address: String = socket_addr.ip().to_string();
 
-        let ip_address: IpNet = socket_addr.ip().into();
         // let mut session_service = SessionService::new(pool.clone());
         // let session = session_service
         //     .validate_session(id, ip_address, user_agent)

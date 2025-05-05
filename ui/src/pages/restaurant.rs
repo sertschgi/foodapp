@@ -69,6 +69,7 @@ pub fn Restaurant(#[props(into)] name: String) -> Element {
             id: "Restaurant",
             onvisible: change,
             TopBar {
+                title: &name,
                 FavouriteButton {
                     restaurant_id: restaurant_id(),
                     favourite,

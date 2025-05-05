@@ -36,7 +36,7 @@ pub(crate) struct UserSession {
     pub id: Uuid,
     pub user_id: Uuid,
     pub device_info: String,
-    pub ip_addr: IpNet,
+    pub ip_address: String,
     pub user_agent: String,
     pub created_at: DateTime<Utc>,
     pub expires_at: DateTime<Utc>,
@@ -47,7 +47,7 @@ pub(crate) struct UserSession {
 #[diesel(table_name = user_sessions)]
 pub(crate) struct NewUserSession {
     pub user_id: Uuid,
-    pub ip_address: IpNet,
+    pub ip_address: String,
     pub device_info: String,
     pub user_agent: String,
     pub expires_at: DateTime<Utc>,

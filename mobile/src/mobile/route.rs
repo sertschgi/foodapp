@@ -9,6 +9,8 @@ pub fn Home() -> Element {
     }
 }
 
+use pages::Restaurant;
+
 pub fn Favourite() -> Element {
     rsx! {
         pages::Favourite {}
@@ -54,7 +56,7 @@ pub enum Route {
     #[layout(Page)]
     #[route("/startseite")]
     Home {},    
-    #[route("/favouriten")]
+    #[route("/favoriten")]
     Favourite {},
     #[route("/suche")]
     Search {},
@@ -68,6 +70,8 @@ pub enum Route {
     Settings {},
     #[end_layout]
     #[end_layout]
+    #[route("/restaurant/:name")]
+    Restaurant { name: String },   
     #[route("/:..route")]
     HandleNotFound { route: Vec<String> },
 }

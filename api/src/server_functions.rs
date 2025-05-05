@@ -226,7 +226,6 @@ pub async fn login(user_login: LoginRequest) -> Result<LoginSession, ServerFnErr
     };
     use axum_extra::extract::cookie::Cookie;
     use deadpool_diesel::postgres::Pool;
-    use ipnet::*;
     use std::net::SocketAddr;
 
     let Extension(pool): Extension<Pool> = extract().await?;
@@ -251,7 +250,7 @@ pub async fn login(user_login: LoginRequest) -> Result<LoginSession, ServerFnErr
     }
 
     let ConnectInfo(socket_addr): ConnectInfo<SocketAddr> = extract().await?;
-    let ip_address: IpNet = socket_addr.ip().into();
+    let ip_address: String = socket_addr.ip().to_string();
 
     let headers: HeaderMap = extract().await?;
 

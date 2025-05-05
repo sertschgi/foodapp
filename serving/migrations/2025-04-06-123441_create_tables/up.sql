@@ -14,7 +14,7 @@ CREATE TABLE user_sessions (
     -- session_token VARCHAR(255) NOT NULL,
     -- refresh_token VARCHAR(255) NOT NULL,
     device_info TEXT NOT NULL,
-    ip_address INET NOT NULL,
+    ip_address VARCHAR(50) NOT NULL,
     user_agent TEXT NOT NULL,
     -- is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,

@@ -15,6 +15,7 @@ pub fn ColorMode() -> Element {
                 } else {
                     darkmode.set(true);
                 }
+                document::eval("window.location.reload();");
             },
             if darkmode() {
                 ColorModeIconFull {}

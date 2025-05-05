@@ -21,7 +21,7 @@ services:
       - ../.:/app
     ports:
       - "${INTERN_SV_PORT}:${SV_PORT}"
-    command: ./target/dx/desktop/release/web/server
+    command: ./target/dx/web/release/web/server
     depends_on:
       - foodapp_db_service
     networks:

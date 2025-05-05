@@ -8,8 +8,10 @@ dioxus = { workspace = true }
 serving = { workspace = true, optional = true }
 ui = { workspace = true, optional = true }
 dotenv = { version = "0.15.0" }
+# dioxus_storage = { git = "https://github.com/DioxusLabs/sdk", optional = true}
+dioxus_storage = { version = "0", optional = true }
 
 [features]
 default = []
 server = ["dioxus/server", "serving"]
-mobile = ["dioxus/mobile", "ui"]
+mobile = ["dioxus/mobile", "ui", "dioxus_storage"]

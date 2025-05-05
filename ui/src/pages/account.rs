@@ -60,6 +60,7 @@ pub fn Account() -> Element {
                             br {}
                             input {
                                 r#type: "text",
+                                required: true,
                                 name: "ident"
                             }
                         }
@@ -69,6 +70,7 @@ pub fn Account() -> Element {
                             br {}
                             input {
                                 r#type: "password",
+                                required: true,
                                 name: "password"
                             }
                         }
@@ -98,14 +100,16 @@ pub fn Account() -> Element {
                                 username,
                                 password,
                             };
-                            debug!("{:?}", request);
-                            debug!("{:?}", register(request).await);
+                            if register(request).await.is_ok() {
+                                toggle.set(true);
+                            }
                         },
                         label {
                             "E-Mail:"
                             br {}
                             input {
                                 r#type: "email",
+                                required: true,
                                 name: "email"
                             }
                         }
@@ -115,6 +119,7 @@ pub fn Account() -> Element {
                             br {}
                             input {
                                 r#type: "text",
+                                required: true,
                                 name: "username"
                             }
                         }
@@ -124,6 +129,7 @@ pub fn Account() -> Element {
                             br {}
                             input {
                                 r#type: "text",
+                                required: true,
                                 name: "password"
                             }
                         }

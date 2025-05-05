@@ -15,6 +15,7 @@ use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use dioxus::fullstack::prelude::*;
 use dioxus::fullstack::server::DioxusRouterExt;
 use dioxus::logger::tracing::*;
+use dioxus::prelude::*;
 use dotenv::dotenv;
 use std::env;
 use std::net::*;
@@ -24,7 +25,7 @@ use tower_cookies::{Cookie, CookieManagerLayer, Cookies};
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
 
 #[tokio::main]
-pub async fn serve() {
+pub async fn serve(app: fn() -> Element) {
     dotenv().ok();
 
     dioxus::logger::initialize_default();
@@ -54,9 +55,8 @@ pub async fn serve() {
     // ############################## AXUM APP ############################## //
 
     let app = Router::new()
-        .register_server_functions()
+        .serve_dioxus_application(ServeConfig::new().expect("Could not load index"), app)
         .layer(Extension(pool))
-        .layer(middleware::from_fn(cookie_middleware))
         .with_state(());
 
     let host = env::var("INTERN_SV_HOST")

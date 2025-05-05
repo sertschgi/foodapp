@@ -1,12 +1,10 @@
-#[cfg(feature = "desktop")]
-pub mod desktop;
 #[cfg(feature = "server")]
 pub mod server;
-#[cfg(feature = "desktop")]
-pub use desktop::*;
-#[cfg(feature = "server")]
-pub use server::*;
+pub mod web;
 
 fn main() {
-    launch()
+    #[cfg(feature = "server")]
+    server::launch();
+    #[cfg(feature = "web")]
+    web::launch()
 }

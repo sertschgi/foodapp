@@ -1,0 +1,59 @@
+services:
+  foodapp_db_service:
+    image: postgis/postgis:latest
+    container_name: foodapp_database
+    ports:
+      - "${INTERN_DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      foodapp_net:
+        ipv4_address: ${DB_HOST}
+
+  foodapp_server_service:
+    build:
+      dockerfile: ./Dockerfile
+    container_name: foodapp_server
+    ports:
+      - "${INTERN_SV_PORT}:${SV_PORT}"
+    depends_on:
+      - foodapp_db_service
+    networks:
+      foodapp_net:
+        ipv4_address: ${SV_HOST}
+
+  pgadmin_service:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - "${INTERN_PG_PORT}:${PG_PORT}"
+    restart: unless-stopped
+    depends_on:
+      - foodapp_db_service
+    networks:
+      foodapp_net:
+        ipv4_address: ${PG_HOST}
+
+# COMMENT OUT
+networks:
+  foodapp_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "${SUBNET}"
+          gateway: "${GATEWAY}"
+# # UNCOMMENT
+# networks:
+#   foodapp_net:
+#     driver: ipvlan
+#     driver_opts:
+#       parent: ${NET_ADAPTER}
+#     ipam:
+#       config:
+#         - subnet: "${SUBNET}"
+#           gateway: "${GATEWAY}"

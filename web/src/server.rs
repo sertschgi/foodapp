@@ -1,3 +1,5 @@
+use crate::web::app::App;
+
 pub fn launch() {
-    serving::serve();
+    serving::serve(App);
 }
