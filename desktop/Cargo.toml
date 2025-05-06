@@ -6,11 +6,14 @@ edition = "2021"
 [dependencies]
 dioxus = { workspace = true }
 serving = { workspace = true, optional = true }
-ui = { workspace = true, optional = true }
+ui = { workspace = true}
 dotenv = { version = "0.15.0" }
-dioxus_storage = { git = "https://github.com/DioxusLabs/sdk", optional = true}
+change-case = { version = ">=0.2.0" }
+dioxus_storage = { git = "https://github.com/DioxusLabs/sdk" }
+percent-encoding = { version = "2.3" }
+
 
 [features]
 default = []
+desktop = ["dioxus/desktop", "ui/desktop"]
 server = ["dioxus/server", "serving"]
-desktop = ["dioxus/desktop", "ui", "dioxus_storage"]

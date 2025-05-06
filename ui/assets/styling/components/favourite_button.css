@@ -2,7 +2,5 @@
   width: fit-content;
   background-color: transparent;
   border: none;
-  padding: 1rem;
-  padding-left: 0;
   color: rgb(var(--accent-color));
 }

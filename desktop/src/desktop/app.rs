@@ -1,4 +1,4 @@
-use crate::prelude::*;
+use super::deps::*;
 
 const PLATFORM_CSS: Asset = asset!("/assets/platform.css");
 

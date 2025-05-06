@@ -1349,9 +1349,11 @@ dependencies = [
 name = "desktop"
 version = "0.1.0"
 dependencies = [
+ "change-case",
  "dioxus 0.6.3",
  "dioxus_storage 0.1.0-alpha.1",
  "dotenv",
+ "percent-encoding",
  "serving",
  "ui",
 ]

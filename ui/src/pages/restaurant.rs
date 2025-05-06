@@ -84,15 +84,18 @@ pub fn Restaurant(#[props(into)] name: String) -> Element {
                     }
                 }
                 div {
-                    class: "wrapper",
+                    class: "wrapper view",
+                    div {
+                        class: "wrapper info",
 
-                    h1 {
-                        id: "name",
-                        {name}
-                    }
-                    RatingsBar {
-                        restaurant_id: restaurant_id(),
-                        ratings: ratings(),
+                        h1 {
+                            id: "name",
+                            {name}
+                        }
+                        RatingsBar {
+                            restaurant_id: restaurant_id(),
+                            ratings: ratings(),
+                        }
                     }
                 }
                 section {

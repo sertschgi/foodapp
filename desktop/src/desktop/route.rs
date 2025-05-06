@@ -1,4 +1,4 @@
-use crate::prelude::{pages::prelude as pages, *};
+use super::deps::{pages::prelude as pages, *};
 
 pub fn Home() -> Element {
     rsx! {

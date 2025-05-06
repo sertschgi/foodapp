@@ -1,4 +1,9 @@
-#TopBar .wrapper {
+#TopBarPlaceholder {
+  height: 4rem;
+}
+
+#TopBar .wrapper.main {
+  width: 100%;
   background-color: rgba(var(--text-color), 0.05);
   backdrop-filter: blur(6px);
   position: absolute;
@@ -9,20 +14,23 @@
   height: 4rem;
   width: 100%;
   align-items: center;
+  justify-content: space-between;
 }
 
-#TopBarPlaceholder {
-  height: 4rem;
+#TopBar .wrapper.title {
+  overflow-y: scroll;
+  flex-shrink: 2;
+  flex-grow: 1;
 }
 
-#TopBar .Title {
+#TopBar #title {
   font-size: 2rem;
   font-weight: bold;
   justify-self: center;
-  flex-grow: 1;
-  margin: 0;
+  margin: 0 1rem;
   text-align: center;
   color: rgb(var(--accent-color));
+  text-wrap-mode: nowrap;
 }
 
 #TopBar .BackButton {
@@ -41,4 +49,8 @@
 #TopBar .BackButton svg {
   height: 3rem;
   width: 3rem;
+}
+
+#TopBar .wrapper.children>* {
+  margin: 1rem;
 }

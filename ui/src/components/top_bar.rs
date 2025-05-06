@@ -11,20 +11,26 @@ pub fn TopBar(title: String, children: Element) -> Element {
 
         div {
             id: "TopBar",
-            div {
-                class: "wrapper",
+            section {
+                class: "wrapper main",
                 button {
                     class: "BackButton",
                     onclick: click,
                     BackIcon {}
                 }
-                h3 {
-                    class: "Title",
-                    {title}
+                div {
+                    class: "wrapper title",
+                    h3 {
+                        id: "title",
+                        {title}
+                    }
                 }
-                {children}
+                div {
+                    class: "wrapper children",
+                    {children}
+                }
             }
-            div {
+            section {
                 id: "TopBarPlaceholder"
             }
         }

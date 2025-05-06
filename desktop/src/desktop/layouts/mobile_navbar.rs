@@ -1,4 +1,4 @@
-use crate::prelude::{components::prelude::*, *};
+use super::deps::{components::prelude::*, *};
 
 #[component]
 pub fn MobileNavbar() -> Element {

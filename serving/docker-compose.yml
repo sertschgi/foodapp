@@ -24,6 +24,7 @@ services:
     command: ./target/dx/web/release/web/server
     depends_on:
       - foodapp_db_service
+    restart: on-failure
     networks:
       foodapp_net:
         ipv4_address: ${SV_HOST}

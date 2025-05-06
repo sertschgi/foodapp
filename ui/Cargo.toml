@@ -12,3 +12,9 @@ uuid = { version = "1", features = ["serde"] }
 dioxus_storage = { git = "https://github.com/DioxusLabs/sdk" }
 base64 = { version = "0.22" }
 percent-encoding = { version = "2.3" }
+
+[features]
+default = []
+desktop = []
+mobile = []
+web = []

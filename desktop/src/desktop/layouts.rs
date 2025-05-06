@@ -4,6 +4,8 @@ pub mod mobile_top_bar;
 pub mod page;
 pub mod view;
 
+pub(crate) use super::deps;
+
 pub mod prelude {
     pub use super::go_back::GoBack;
     pub use super::mobile_navbar::MobileNavbar;

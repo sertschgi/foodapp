@@ -10,7 +10,7 @@ members = [
 ]
 
 [workspace.dependencies]
-dioxus = { version = "0.6.0", features = ["fullstack", "router"] }
+dioxus = { version = "0.6.3", features = ["fullstack", "router"] }
 ui = { path = "ui" }
 api = { path = "api" }
 serving = { path = "serving" }

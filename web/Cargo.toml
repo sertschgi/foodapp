@@ -14,5 +14,5 @@ percent-encoding = { version = "2.3" }
 
 [features]
 default = []
-web = ["dioxus/web"]
+web = ["dioxus/web", "ui/web"]
 server = ["dioxus/server", "serving"]

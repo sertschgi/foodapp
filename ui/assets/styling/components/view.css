@@ -30,13 +30,10 @@ body {
   background-color: rgb(var(--background-color));
 }
 
-#main {
-  overflow: scroll;
-}
-
 #View {
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
 
 svg {
